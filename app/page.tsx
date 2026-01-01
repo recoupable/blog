@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { allPosts } from "contentlayer/generated";
-import { compareDesc, format, parseISO } from "date-fns";
-import { ArrowRight } from "lucide-react";
+import { compareDesc } from "date-fns";
+import { FormattedDate } from "@/components/formatted-date";
 
 export default function Home() {
   const posts = allPosts
@@ -9,66 +9,99 @@ export default function Home() {
     .sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)));
 
   return (
-    <div className="container max-w-4xl py-12">
-      <div className="flex flex-col items-start gap-4 md:flex-row md:justify-between md:gap-8">
-        <div className="flex-1 space-y-4">
-          <h1 className="inline-block font-bold text-4xl lg:text-5xl">
+    <div className="relative">
+      {/* Hero Section */}
+      <section className="relative flex min-h-[40vh] items-center justify-center px-8">
+        <div className="mx-auto max-w-4xl text-center">
+          <h1 className="mb-4 text-[clamp(2.5rem,7vw,4.5rem)] font-light leading-[1.1] tracking-tight">
             Recoupable Research
           </h1>
-          <p className="text-xl text-muted-foreground">
-            Deep dives into music technology, artist tools, and the future of the music industry.
-            Insights from the team building the next generation of artist infrastructure.
+          <p className="mx-auto max-w-2xl text-base font-light leading-relaxed tracking-wide text-foreground/70 md:text-lg">
+            Insights into the future of music technology
           </p>
         </div>
-      </div>
-      <hr className="my-8" />
-      <div className="grid gap-10 sm:grid-cols-2">
-        {posts.map((post) => (
-          <article
-            key={post._id}
-            className="group relative flex flex-col space-y-2"
-          >
-            {post.image && (
-              <img
-                src={post.image}
-                alt={post.title}
-                className="rounded-md border bg-muted transition-colors aspect-video object-cover"
-              />
-            )}
-            <h2 className="text-2xl font-bold">
-              <Link href={post.url} className="hover:underline">
-                {post.title}
-              </Link>
-            </h2>
-            <p className="text-muted-foreground">{post.description}</p>
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <time dateTime={post.date}>
-                {format(parseISO(post.date), "MMMM dd, yyyy")}
-              </time>
-              {post.author && (
-                <>
-                  <span>•</span>
-                  <span>{post.author}</span>
-                </>
-              )}
-            </div>
+      </section>
+
+      {/* Blog Posts */}
+      <section className="mx-auto max-w-7xl px-8 pb-24 pt-12">
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          {posts.map((post) => (
             <Link
+              key={post._id}
               href={post.url}
-              className="inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline"
+              className="group relative flex flex-col"
             >
-              Read more
-              <ArrowRight className="h-4 w-4" />
+              {/* Card Container */}
+              <div className="flex h-full flex-col rounded-2xl border border-border/50 bg-card/30 p-6 backdrop-blur-sm transition-all duration-300 hover:border-border hover:bg-card/50 hover:shadow-xl">
+                {/* Meta */}
+                <div className="mb-4 space-y-2">
+                  <div className="text-xs font-light uppercase tracking-widest text-muted-foreground">
+                    <FormattedDate
+                      dateString={post.date}
+                      formatString="MMMM d, yyyy"
+                    />
+                  </div>
+                  {post.tags && post.tags.length > 0 && (
+                    <div className="flex flex-wrap gap-2">
+                      {post.tags.slice(0, 2).map((tag) => (
+                        <span
+                          key={tag}
+                          className="rounded-full border border-border/40 px-3 py-1 text-xs font-light tracking-wide text-muted-foreground"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                {/* Content */}
+                <div className="flex flex-1 flex-col space-y-3">
+                  <h2 className="text-xl font-light leading-tight tracking-tight transition-colors group-hover:text-foreground">
+                    {post.title}
+                  </h2>
+                  <p className="flex-1 text-sm font-light leading-relaxed text-muted-foreground">
+                    {post.description}
+                  </p>
+
+                  {/* Footer */}
+                  <div className="flex items-center justify-between border-t border-border/30 pt-3">
+                    {post.author && (
+                      <span className="text-xs font-light text-muted-foreground">
+                        {post.author}
+                      </span>
+                    )}
+                    <span className="inline-flex items-center text-xs font-light tracking-wide text-foreground transition-colors group-hover:text-[#4778f5]">
+                      Read
+                      <svg
+                        className="ml-1.5 h-3.5 w-3.5 transition-transform group-hover:translate-x-1"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M17 8l4 4m0 0l-4 4m4-4H3"
+                        />
+                      </svg>
+                    </span>
+                  </div>
+                </div>
+              </div>
             </Link>
-          </article>
-        ))}
-      </div>
-      {posts.length === 0 && (
-        <div className="flex flex-col items-center justify-center space-y-4 py-12 text-center">
-          <p className="text-lg text-muted-foreground">
-            No posts published yet. Check back soon!
-          </p>
+          ))}
         </div>
-      )}
+
+        {posts.length === 0 && (
+          <div className="flex min-h-[40vh] items-center justify-center">
+            <p className="font-light text-muted-foreground">
+              No posts published yet
+            </p>
+          </div>
+        )}
+      </section>
     </div>
   );
 }

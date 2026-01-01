@@ -1,7 +1,8 @@
 import { notFound } from "next/navigation";
 import { allPosts } from "contentlayer/generated";
-import { format, parseISO } from "date-fns";
 import { Mdx } from "@/components/mdx-components";
+import { FormattedDate } from "@/components/formatted-date";
+import { calculateReadingTime } from "@/lib/reading-time";
 import type { Metadata } from "next";
 
 interface PageProps {
@@ -62,47 +63,73 @@ export default async function PostPage({ params }: PageProps) {
     notFound();
   }
 
+  const readingTime = calculateReadingTime(post.body.raw);
+
   return (
-    <article className="container max-w-3xl py-12">
-      <div className="space-y-4">
-        <h1 className="inline-block font-bold text-4xl lg:text-5xl">
+    <article className="container max-w-2xl mx-auto px-6 py-16 md:py-24">
+      {/* Header */}
+      <header className="mb-12">
+        {/* Tags */}
+        {post.tags && post.tags.length > 0 && (
+          <div className="flex flex-wrap gap-2 mb-6">
+            {post.tags.map((tag) => (
+              <span
+                key={tag}
+                className="text-xs font-medium uppercase tracking-wider text-muted-foreground"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        )}
+
+        {/* Title */}
+        <h1 className="font-bold text-3xl md:text-4xl lg:text-5xl tracking-tight leading-tight mb-6">
           {post.title}
         </h1>
-        <div className="flex gap-4 text-sm text-muted-foreground">
-          <time dateTime={post.date}>
-            {format(parseISO(post.date), "MMMM dd, yyyy")}
-          </time>
+
+        {/* Description */}
+        {post.description && (
+          <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-8">
+            {post.description}
+          </p>
+        )}
+
+        {/* Meta */}
+        <div className="flex items-center gap-2 text-sm text-muted-foreground">
           {post.author && (
             <>
-              <span>•</span>
-              <span>{post.author}</span>
+              <span className="font-medium text-foreground">{post.author}</span>
+              <span className="text-muted-foreground/50">·</span>
             </>
           )}
-          {post.tags && post.tags.length > 0 && (
-            <>
-              <span>•</span>
-              <div className="flex gap-2">
-                {post.tags.map((tag) => (
-                  <span key={tag} className="text-primary">
-                    #{tag}
-                  </span>
-                ))}
-              </div>
-            </>
-          )}
+          <FormattedDate dateString={post.date} />
+          <span className="text-muted-foreground/50">·</span>
+          <span>{readingTime}</span>
         </div>
-      </div>
+      </header>
+
+      {/* Featured Image */}
       {post.image && (
         <img
           src={post.image}
           alt={post.title}
-          className="my-8 rounded-lg border bg-muted"
+          className="w-full rounded-xl mb-12"
         />
       )}
-      <hr className="my-8" />
+
+      {/* Content */}
       <div className="prose prose-lg dark:prose-invert">
         <Mdx code={post.body.code} />
       </div>
+
+      {/* Footer */}
+      <footer className="mt-16 pt-8 border-t border-border">
+        <div className="flex items-center justify-between text-sm text-muted-foreground">
+          <span>Published by {post.author || "Recoupable Team"}</span>
+          <FormattedDate dateString={post.date} />
+        </div>
+      </footer>
     </article>
   );
 }

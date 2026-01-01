@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
+import { ThemeProvider } from "@/components/theme-provider";
+import { ThemeToggle } from "@/components/theme-toggle";
+import { Logo } from "@/components/logo";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,22 +25,23 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={cn(inter.className, "min-h-screen antialiased")}>
-        <div className="relative flex min-h-screen flex-col">
-          <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <body className={cn(inter.className, "min-h-screen antialiased")} suppressHydrationWarning>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <div className="relative flex min-h-screen flex-col">
+          <header className="sticky top-0 z-50 w-full">
             <div className="container flex h-14 max-w-screen-2xl items-center">
-              <div className="mr-4 flex">
+              <div className="mr-4 flex pl-8">
                 <a className="mr-6 flex items-center space-x-2" href="/">
-                  <span className="font-bold text-xl">Recoupable Research</span>
+                  <Logo />
                 </a>
               </div>
-              <nav className="flex items-center space-x-6 text-sm font-medium">
-                <a href="/blog" className="transition-colors hover:text-foreground/80">
-                  Blog
-                </a>
-                <a href="https://recoupable.com" className="transition-colors hover:text-foreground/80">
-                  About Recoupable
-                </a>
+              <nav className="flex flex-1 items-center justify-end space-x-2 pr-8">
+                <ThemeToggle />
               </nav>
             </div>
           </header>
@@ -58,7 +62,8 @@ export default function RootLayout({
               </p>
             </div>
           </footer>
-        </div>
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   );
