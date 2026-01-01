@@ -1,0 +1,113 @@
+---
+title: "How to Write a Blog Post"
+date: "2026-01-02"
+description: "A quick guide to writing and publishing articles on Recoupable Research using MDX and markdown."
+author: "Recoupable Team"
+tags: ["guide", "tutorial", "blogging"]
+published: true
+---
+
+Writing a blog post is simple! Just create a new `.mdx` file in the `content/blog/` directory.
+
+## Frontmatter
+
+Every post starts with frontmatter (the metadata between `---` markers):
+
+```yaml
+---
+title: "Your Post Title"
+date: "2026-01-02"
+description: "A short description for SEO and previews"
+author: "Your Name"
+tags: ["tag1", "tag2"]
+published: true
+---
+```
+
+## Markdown Basics
+
+### Headings
+
+Use `#` for headings (H1 through H6):
+
+```markdown
+# H1 Heading
+## H2 Heading
+### H3 Heading
+```
+
+### Text Formatting
+
+- **Bold text** with `**bold**` or `__bold__`
+- *Italic text* with `*italic*` or `_italic_`
+- `Inline code` with backticks
+- ~~Strikethrough~~ with `~~text~~`
+
+### Lists
+
+Unordered lists:
+- Item 1
+- Item 2
+  - Nested item
+  - Another nested item
+
+Ordered lists:
+1. First item
+2. Second item
+3. Third item
+
+### Links and Images
+
+Links: `[Link text](https://example.com)`
+
+Images: `![Alt text](image-url.jpg)`
+
+### Blockquotes
+
+> This is a blockquote. Great for highlighting important information or quotes.
+
+### Code Blocks
+
+Use triple backticks for code blocks with syntax highlighting:
+
+````
+```typescript
+function greet(name: string): string {
+  return `Hello, ${name}!`;
+}
+```
+````
+
+### Tables
+
+| Column 1 | Column 2 | Column 3 |
+|----------|----------|----------|
+| Data 1   | Data 2   | Data 3   |
+| Data 4   | Data 5   | Data 6   |
+
+## Publishing Workflow
+
+1. **Write**: Create your `.mdx` file in `content/blog/`
+2. **Preview**: Run `pnpm dev` locally to see your post
+3. **Commit**: `git add .` and `git commit -m "Add new post"`
+4. **Deploy**: `git push` - Vercel auto-deploys in ~2 minutes
+5. **Share**: Your post is live!
+
+## Advanced: MDX Components
+
+MDX allows you to use React components in your markdown. For example, you could create custom components for:
+
+- Interactive charts
+- Twitter/social embeds
+- Custom call-out boxes
+- Video players
+
+## Tips
+
+- Keep filenames lowercase with hyphens: `my-awesome-post.mdx`
+- Use descriptive titles and meta descriptions for SEO
+- Add images to `/public/blog/` and reference them
+- Tag posts for organization
+- Set `published: false` to draft posts
+
+That's it! Start writing and sharing your insights with the world.
