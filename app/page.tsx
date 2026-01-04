@@ -13,7 +13,7 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative flex min-h-[40vh] items-center justify-center px-8">
         <div className="mx-auto max-w-4xl text-center">
-          <h1 className="mb-4 text-[clamp(2.5rem,7vw,4.5rem)] font-light leading-[1.1] tracking-tight">
+          <h1 className="mb-4 font-serif text-[clamp(2.5rem,7vw,4.5rem)] font-normal italic leading-[1.1] tracking-tight">
             Recoupable Research
           </h1>
           <p className="mx-auto max-w-2xl text-base font-light leading-relaxed tracking-wide text-foreground/70 md:text-lg">
