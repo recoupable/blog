@@ -1,59 +1,9 @@
 import Link from "next/link";
-import { allPosts } from "contentlayer/generated";
-import { compareDesc } from "date-fns";
 import { FormattedDate } from "@/components/formatted-date";
-import {
-  getParagraphPost,
-  PARAGRAPH_POST_IDS,
-  timestampToISODate,
-} from "@/lib/paragraph";
-
-interface NormalizedPost {
-  id: string;
-  title: string;
-  description: string;
-  date: string;
-  url: string;
-  author?: string;
-  tags?: string[];
-}
+import { getAllPosts } from "@/lib/posts/normalizePosts";
 
 export default async function Home() {
-  // Fetch Paragraph post
-  const paragraphPost = await getParagraphPost(PARAGRAPH_POST_IDS.RECOUP_2026);
-
-  // Normalize Contentlayer posts
-  const contentlayerPosts: NormalizedPost[] = allPosts
-    .filter((post) => post.published !== false)
-    .map((post) => ({
-      id: post._id,
-      title: post.title,
-      description: post.description,
-      date: post.date,
-      url: post.url,
-      author: post.author,
-      tags: post.tags,
-    }));
-
-  // Normalize Paragraph post if available
-  const paragraphPosts: NormalizedPost[] = paragraphPost
-    ? [
-        {
-          id: paragraphPost.id,
-          title: paragraphPost.title,
-          description: paragraphPost.subtitle || "",
-          date: timestampToISODate(paragraphPost.publishedAt),
-          url: "/blog/recoup-in-2026",
-          author: "Recoupable Team",
-          tags: ["roadmap", "2026"],
-        },
-      ]
-    : [];
-
-  // Combine and sort all posts
-  const posts = [...contentlayerPosts, ...paragraphPosts].sort((a, b) =>
-    compareDesc(new Date(a.date), new Date(b.date))
-  );
+  const posts = await getAllPosts();
 
   return (
     <div className="relative">
