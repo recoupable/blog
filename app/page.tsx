@@ -2,11 +2,60 @@ import Link from "next/link";
 import { allPosts } from "contentlayer/generated";
 import { compareDesc } from "date-fns";
 import { FormattedDate } from "@/components/formatted-date";
+import { getParagraphPost } from "@/lib/paragraph";
 
-export default function Home() {
-  const posts = allPosts
+const PARAGRAPH_POST_ID = "JPd97vsPc118HjFwEUux";
+
+interface NormalizedPost {
+  id: string;
+  title: string;
+  description: string;
+  date: string;
+  url: string;
+  author?: string;
+  tags?: string[];
+}
+
+function timestampToISODate(timestamp: string): string {
+  return new Date(parseInt(timestamp, 10)).toISOString();
+}
+
+export default async function Home() {
+  // Fetch Paragraph post
+  const paragraphPost = await getParagraphPost(PARAGRAPH_POST_ID);
+
+  // Normalize Contentlayer posts
+  const contentlayerPosts: NormalizedPost[] = allPosts
     .filter((post) => post.published !== false)
-    .sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)));
+    .map((post) => ({
+      id: post._id,
+      title: post.title,
+      description: post.description,
+      date: post.date,
+      url: post.url,
+      author: post.author,
+      tags: post.tags,
+    }));
+
+  // Normalize Paragraph post if available
+  const paragraphPosts: NormalizedPost[] = paragraphPost
+    ? [
+        {
+          id: paragraphPost.id,
+          title: paragraphPost.title,
+          description: paragraphPost.subtitle || "",
+          date: timestampToISODate(paragraphPost.publishedAt),
+          url: "/blog/recoup-in-2026",
+          author: "Recoupable Team",
+          tags: ["roadmap", "2026"],
+        },
+      ]
+    : [];
+
+  // Combine and sort all posts
+  const posts = [...contentlayerPosts, ...paragraphPosts].sort((a, b) =>
+    compareDesc(new Date(a.date), new Date(b.date))
+  );
 
   return (
     <div className="relative">
@@ -27,7 +76,7 @@ export default function Home() {
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {posts.map((post) => (
             <Link
-              key={post._id}
+              key={post.id}
               href={post.url}
               className="group relative flex flex-col"
             >
