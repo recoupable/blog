@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { FormattedDate } from "@/components/formatted-date";
-import { getAllPosts } from "@/lib/posts/normalizePosts";
+import { getAllPosts } from "@/lib/posts";
 
 export default async function Home() {
   const posts = await getAllPosts();
