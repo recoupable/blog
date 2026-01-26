@@ -1,3 +1,4 @@
 export const PARAGRAPH_POST_IDS = {
   RECOUP_2026: "JPd97vsPc118HjFwEUux",
+  SANDBOX_FOR_RECORD_LABELS: "k12WiMLKQlt4hVtK5zOA",
 } as const;
