@@ -8,12 +8,12 @@ import { ParagraphPage } from "@/components/Paragraph/ParagraphPage";
 import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const post = await getParagraphPost(PARAGRAPH_POST_IDS.RECOUP_2026);
+  const post = await getParagraphPost(PARAGRAPH_POST_IDS.SANDBOX_FOR_RECORD_LABELS);
   return generateParagraphMetadata(post);
 }
 
-export default async function RecoupIn2026Page() {
-  const post = await getParagraphPost(PARAGRAPH_POST_IDS.RECOUP_2026);
+export default async function SandboxForRecordLabelsPage() {
+  const post = await getParagraphPost(PARAGRAPH_POST_IDS.SANDBOX_FOR_RECORD_LABELS);
 
   if (!post) {
     notFound();
