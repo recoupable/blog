@@ -2,9 +2,11 @@ import Link from "next/link";
 import { allPosts } from "contentlayer/generated";
 import { compareDesc } from "date-fns";
 import { FormattedDate } from "@/components/formatted-date";
-import { getParagraphPost } from "@/lib/paragraph";
-
-const PARAGRAPH_POST_ID = "JPd97vsPc118HjFwEUux";
+import {
+  getParagraphPost,
+  PARAGRAPH_POST_IDS,
+  timestampToISODate,
+} from "@/lib/paragraph";
 
 interface NormalizedPost {
   id: string;
@@ -16,13 +18,9 @@ interface NormalizedPost {
   tags?: string[];
 }
 
-function timestampToISODate(timestamp: string): string {
-  return new Date(parseInt(timestamp, 10)).toISOString();
-}
-
 export default async function Home() {
   // Fetch Paragraph post
-  const paragraphPost = await getParagraphPost(PARAGRAPH_POST_ID);
+  const paragraphPost = await getParagraphPost(PARAGRAPH_POST_IDS.RECOUP_2026);
 
   // Normalize Contentlayer posts
   const contentlayerPosts: NormalizedPost[] = allPosts

@@ -1,13 +1,16 @@
 import { notFound } from "next/navigation";
-import { getParagraphPost } from "@/lib/paragraph";
+import {
+  getParagraphPost,
+  PARAGRAPH_POST_IDS,
+  timestampToISODate,
+  stripHtml,
+} from "@/lib/paragraph";
 import { FormattedDate } from "@/components/formatted-date";
 import { calculateReadingTime } from "@/lib/reading-time";
 import type { Metadata } from "next";
 
-const PARAGRAPH_POST_ID = "JPd97vsPc118HjFwEUux";
-
 export async function generateMetadata(): Promise<Metadata> {
-  const post = await getParagraphPost(PARAGRAPH_POST_ID);
+  const post = await getParagraphPost(PARAGRAPH_POST_IDS.RECOUP_2026);
 
   if (!post) {
     return {};
@@ -31,16 +34,8 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-function stripHtml(html: string): string {
-  return html.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
-}
-
-function timestampToISODate(timestamp: string): string {
-  return new Date(parseInt(timestamp, 10)).toISOString();
-}
-
 export default async function RecoupIn2026Page() {
-  const post = await getParagraphPost(PARAGRAPH_POST_ID);
+  const post = await getParagraphPost(PARAGRAPH_POST_IDS.RECOUP_2026);
 
   if (!post) {
     notFound();
