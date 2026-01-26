@@ -61,9 +61,9 @@ export default function RootLayout({
                   rel="noreferrer"
                   className="font-medium underline underline-offset-4"
                 >
-                  Recoupable
+                  Recoup
                 </a>
-                . Empowering artists with data-driven insights.
+                . Empowering artists to build their own record label.
               </p>
             </div>
           </footer>
