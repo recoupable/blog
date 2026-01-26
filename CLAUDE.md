@@ -9,6 +9,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - After committing changes, push to the feature branch
 - If no pull request exists for the feature branch, open a PR from the feature branch to `main`
 
+## Code Principles
+
+- **DRY** (Don't Repeat Yourself): Extract shared logic into reusable functions or components
+- **SRP** (Single Responsibility Principle): Each module/function should do one thing well
+- **YAGNI** (You Aren't Gonna Need It): Only implement what's needed now, not speculative features
+- **OCP** (Open/Closed Principle): Code should be open for extension but closed for modification
+
 ## Commands
 
 ```bash
