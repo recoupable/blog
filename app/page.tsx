@@ -1,12 +1,9 @@
 import Link from "next/link";
-import { allPosts } from "contentlayer/generated";
-import { compareDesc } from "date-fns";
 import { FormattedDate } from "@/components/formatted-date";
+import { getAllPosts } from "@/lib/posts";
 
-export default function Home() {
-  const posts = allPosts
-    .filter((post) => post.published !== false)
-    .sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)));
+export default async function Home() {
+  const posts = await getAllPosts();
 
   return (
     <div className="relative">
@@ -27,7 +24,7 @@ export default function Home() {
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {posts.map((post) => (
             <Link
-              key={post._id}
+              key={post.id}
               href={post.url}
               className="group relative flex flex-col"
             >
