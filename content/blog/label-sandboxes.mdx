@@ -1,0 +1,49 @@
+---
+title: "Label Sandboxes with Open Agents"
+date: "2026-04-22"
+description: "The record label is no longer a set of tools—it's a programmable system your agent can run."
+author: "sweetman"
+tags: ["Sandboxes", "Recoup", "Labels", "Agents", "Vercel"]
+published: true
+---
+
+Today we're announcing [sandbox.recoupable.com](https://sandbox.recoupable.com). Sandboxes are a complete rearchitecture of Recoup. Every label now gets its own shared file system and bash. A sandbox is a persistent cloud environment where your agent can run code, store files, and execute tasks without time limits. Sandboxes solve the problem of copying release files from one app to another. Now, just tell your agent to pull the latest audience metrics from Chartmetric and update the Demographics section of the Release doc on Google Drive.
+
+![](https://storage.googleapis.com/papyrus_images/e661461336733bca760fcbf9ecc00547c19f0be3494f654e2a1f14daa34b2aaf.png)
+
+The current web app ([chat.recoupable.com](https://chat.recoupable.com)) was built over 18+ months ago. We started building Recoup when the [AI SDK](https://ai-sdk.dev/) was first released. Web chat was still in its early days. We were building chats that knew what artist you selected and showed Tool UI Components based. We ran into a few core issues along the way.
+
+## Before
+
+- Leaving the tab → lost progress
+- Custom file system → bugs + maintenance
+- MCP tools → limited access
+
+## Now
+
+- Durable workflows → no timeouts
+- Sandboxes → real file systems
+- Bash → unlimited integrations
+
+![](https://storage.googleapis.com/papyrus_images/6d599c3c61a0640bcabeb2109401aae8edd64bd7d5e9a131403bfbabd3831e68.png)
+
+Legacy: Create a new artist
+
+AI is continuing to advance rapidly. We're seeing a shift from agents that run in your browser to agents that run in durable workflows with access to an untrusted cloud computer. Recoup sandboxes are a fork of [Open Agents by Vercel](https://vercel.com/templates/template/open-agents), a framework for running long-lived AI agents in cloud environments. The core shift is freeing your agent from the limits of a serverless API by:
+
+- **Workflows** — Removing time limits for how long your agent can think.
+- **Sandboxes** — Giving each Label a Git, industry-grade, file system.
+- **Bash** — Fetch resources from anywhere on the internet.
+
+![](https://storage.googleapis.com/papyrus_images/f29e5f630e52a6f0236df3b5a4335b8b0282fd914ddc38c0cb2d87e118ea06e9.png)
+
+The biggest change you'll notice immediately is your agents on Recoup just got way more powerful. Share a link to a Spotify song and say "give me the album cover" and Recoup fetches the album cover directly from the Spotify page. Ask for Chartmetric data and Recoup will fill in your release doc and pull realtime data from the Chartmetric API and sync your official release files where your team collaborates in Google Docs.
+
+Start here → [sandbox.recoupable.com](https://sandbox.recoupable.com)
+Build on OpenClaw → [developers.recoupable.com](https://developers.recoupable.com)
+
+Sandboxes are still evolving, and some integrations require API keys or setup—but the core workflow is live today.
+
+---
+
+*Originally published on [paragraph.com/@sweetman](https://paragraph.com/@sweetman/label-sandboxes).*
