@@ -21,6 +21,13 @@ export const PARAGRAPH_POSTS: ParagraphPostConfig[] = [
     author: "Recoupable Team",
     tags: ["engineering", "ai"],
   },
+  {
+    key: "LABEL_SANDBOXES",
+    id: "yxhedCYyiAoQwoCKDbeW",
+    url: "/blog/label-sandboxes",
+    author: "sweetman",
+    tags: ["sandboxes", "recoup", "labels", "agents", "vercel"],
+  },
 ];
 
 // Derived lookup by key for individual pages
