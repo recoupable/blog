@@ -23,7 +23,7 @@ export const PARAGRAPH_POSTS: ParagraphPostConfig[] = [
   },
   {
     key: "LABEL_SANDBOXES",
-    id: "p6Vg2TuQT69RafZ6MIFR",
+    id: "DgKA4S0MyBQPQqDK6X6y",
     url: "/blog/label-sandboxes",
     author: "sweetman",
     tags: ["sandboxes", "recoup", "labels", "agents", "vercel"],
