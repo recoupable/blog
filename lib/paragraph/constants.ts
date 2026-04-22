@@ -22,9 +22,9 @@ export const PARAGRAPH_POSTS: ParagraphPostConfig[] = [
     tags: ["engineering", "ai"],
   },
   {
-    key: "LABEL_SANDBOXES",
-    id: "DgKA4S0MyBQPQqDK6X6y",
-    url: "/blog/label-sandboxes",
+    key: "OPEN_LABELS",
+    id: "OtnUfbEiWEwz6y5Ee4ks",
+    url: "/blog/open-labels",
     author: "sweetman",
     tags: ["sandboxes", "recoup", "labels", "agents", "vercel"],
   },
