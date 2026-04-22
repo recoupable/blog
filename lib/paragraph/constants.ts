@@ -21,6 +21,13 @@ export const PARAGRAPH_POSTS: ParagraphPostConfig[] = [
     author: "Recoupable Team",
     tags: ["engineering", "ai"],
   },
+  {
+    key: "OPEN_LABELS",
+    id: "OtnUfbEiWEwz6y5Ee4ks",
+    url: "/blog/open-labels",
+    author: "sweetman",
+    tags: ["sandboxes", "recoup", "labels", "agents", "vercel"],
+  },
 ];
 
 // Derived lookup by key for individual pages
