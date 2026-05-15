@@ -32,7 +32,7 @@ export const PARAGRAPH_POSTS: ParagraphPostConfig[] = [
     key: "INSTALL_MARKETPLACE_CLAUDE_DESKTOP",
     id: "dqsem6sqIVt1wEDNYepW",
     url: "/blog/install-marketplace-claude-desktop",
-    author: "sweetman",
+    author: "Sidney Swift",
     tags: ["tutorial", "claude", "marketplace", "skills", "plugins"],
   },
 ];
