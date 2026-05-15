@@ -28,6 +28,13 @@ export const PARAGRAPH_POSTS: ParagraphPostConfig[] = [
     author: "sweetman",
     tags: ["sandboxes", "recoup", "labels", "agents", "vercel"],
   },
+  {
+    key: "INSTALL_MARKETPLACE_CLAUDE_DESKTOP",
+    id: "dqsem6sqIVt1wEDNYepW",
+    url: "/blog/install-marketplace-claude-desktop",
+    author: "sweetman",
+    tags: ["tutorial", "claude", "marketplace", "skills", "plugins"],
+  },
 ];
 
 // Derived lookup by key for individual pages
