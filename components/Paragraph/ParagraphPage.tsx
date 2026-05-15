@@ -7,7 +7,10 @@ interface ParagraphPageProps {
   author?: string;
 }
 
-export function ParagraphPage({ post, author = "Recoupable Team" }: ParagraphPageProps) {
+export function ParagraphPage({
+  post,
+  author = "Recoupable Team",
+}: ParagraphPageProps) {
   const publishedDate = timestampToISODate(post.publishedAt);
   const readingTime = post.staticHtml
     ? calculateReadingTime(stripHtml(post.staticHtml))
@@ -17,20 +20,26 @@ export function ParagraphPage({ post, author = "Recoupable Team" }: ParagraphPag
     <article className="container mx-auto max-w-2xl px-6 py-16 md:py-24">
       {/* Header */}
       <header className="mb-12">
-        {/* Title */}
-        <h1 className="mb-6 text-3xl font-bold leading-tight tracking-tight md:text-4xl lg:text-5xl">
+        {/* Pixel kicker */}
+        <div className="mb-6 flex items-center gap-3 text-muted-foreground">
+          <span aria-hidden className="h-px w-8 bg-border" />
+          <span className="font-pixel text-xs uppercase tracking-[0.05em]">
+            Article
+          </span>
+        </div>
+
+        {/* Title — Geist Pixel Square per DESIGN.md */}
+        <h1 className="font-pixel text-display tracking-tight text-foreground">
           {post.title}
         </h1>
 
-        {/* Description */}
+        {/* Subtitle */}
         {post.subtitle && (
-          <p className="mb-8 text-lg leading-relaxed text-muted-foreground md:text-xl">
-            {post.subtitle}
-          </p>
+          <p className="mt-6 text-lead text-muted-foreground">{post.subtitle}</p>
         )}
 
         {/* Meta */}
-        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+        <div className="mt-8 flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
           {author && (
             <>
               <span className="font-medium text-foreground">{author}</span>
@@ -45,23 +54,24 @@ export function ParagraphPage({ post, author = "Recoupable Team" }: ParagraphPag
 
       {/* Featured Image */}
       {post.imageUrl && (
+        // eslint-disable-next-line @next/next/no-img-element
         <img
           src={post.imageUrl}
           alt={post.title}
-          className="mb-12 w-full rounded-xl"
+          className="mb-12 w-full rounded-xl shadow-card"
         />
       )}
 
       {/* Content */}
       {post.staticHtml && (
         <div
-          className="prose prose-lg dark:prose-invert"
+          className="prose"
           dangerouslySetInnerHTML={{ __html: post.staticHtml }}
         />
       )}
 
       {/* Footer */}
-      <footer className="mt-16 border-t border-border pt-8">
+      <footer className="shadow-border-top mt-16 pt-8">
         <div className="flex items-center justify-between text-sm text-muted-foreground">
           {author ? <span>Published by {author}</span> : <span />}
           <FormattedDate dateString={publishedDate} />

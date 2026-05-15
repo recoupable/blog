@@ -66,16 +66,19 @@ export default async function PostPage({ params }: PageProps) {
   const readingTime = calculateReadingTime(post.body.raw);
 
   return (
-    <article className="container max-w-2xl mx-auto px-6 py-16 md:py-24">
+    <article className="container mx-auto max-w-2xl px-6 py-16 md:py-24">
       {/* Header */}
       <header className="mb-12">
-        {/* Tags */}
+        {/* Tags — pixel font kicker, then pills */}
         {post.tags && post.tags.length > 0 && (
-          <div className="flex flex-wrap gap-2 mb-6">
-            {post.tags.map((tag) => (
+          <div className="mb-6 flex flex-wrap items-center gap-2">
+            <span className="font-pixel text-xs uppercase tracking-[0.05em] text-muted-foreground">
+              {post.tags[0]}
+            </span>
+            {post.tags.slice(1).map((tag) => (
               <span
                 key={tag}
-                className="text-xs font-medium uppercase tracking-wider text-muted-foreground"
+                className="rounded-full bg-muted px-2.5 py-0.5 text-xs font-medium text-muted-foreground"
               >
                 {tag}
               </span>
@@ -83,20 +86,20 @@ export default async function PostPage({ params }: PageProps) {
           </div>
         )}
 
-        {/* Title */}
-        <h1 className="font-bold text-3xl md:text-4xl lg:text-5xl tracking-tight leading-tight mb-6">
+        {/* Title — Geist Pixel Square per DESIGN.md */}
+        <h1 className="font-pixel text-display tracking-tight text-foreground">
           {post.title}
         </h1>
 
         {/* Description */}
         {post.description && (
-          <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-8">
+          <p className="mt-6 text-lead text-muted-foreground">
             {post.description}
           </p>
         )}
 
         {/* Meta */}
-        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+        <div className="mt-8 flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
           {post.author && (
             <>
               <span className="font-medium text-foreground">{post.author}</span>
@@ -111,20 +114,21 @@ export default async function PostPage({ params }: PageProps) {
 
       {/* Featured Image */}
       {post.image && (
+        // eslint-disable-next-line @next/next/no-img-element
         <img
           src={post.image}
           alt={post.title}
-          className="w-full rounded-xl mb-12"
+          className="mb-12 w-full rounded-xl shadow-card"
         />
       )}
 
       {/* Content */}
-      <div className="prose prose-lg dark:prose-invert">
+      <div className="prose">
         <Mdx code={post.body.code} />
       </div>
 
       {/* Footer */}
-      <footer className="mt-16 pt-8 border-t border-border">
+      <footer className="shadow-border-top mt-16 pt-8">
         <div className="flex items-center justify-between text-sm text-muted-foreground">
           <span>Published by {post.author || "Recoupable Team"}</span>
           <FormattedDate dateString={post.date} />

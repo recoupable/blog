@@ -7,98 +7,115 @@ export default async function Home() {
 
   return (
     <div className="relative">
-      {/* Hero Section */}
-      <section className="relative flex min-h-[40vh] items-center justify-center px-8">
+      {/* Hero */}
+      <section className="relative px-6 py-20 md:px-8 md:py-28">
         <div className="mx-auto max-w-4xl text-center">
-          <h1 className="mb-4 font-serif text-[clamp(2.5rem,7vw,4.5rem)] font-normal italic leading-[1.1] tracking-tight">
+          {/* Pixel kicker — DESIGN.md §4 inline tech label */}
+          <div className="mb-6 flex items-center justify-center gap-3 text-muted-foreground">
+            <span aria-hidden className="h-px w-8 bg-border" />
+            <span className="font-pixel text-xs uppercase tracking-[0.05em]">
+              Research
+            </span>
+            <span aria-hidden className="h-px w-8 bg-border" />
+          </div>
+
+          <h1 className="font-pixel text-display tracking-tight text-foreground">
             Recoupable Research
           </h1>
-          <p className="mx-auto max-w-2xl text-base font-light leading-relaxed tracking-wide text-foreground/70 md:text-lg">
-            Insights into the future of music technology
+
+          <p className="mx-auto mt-6 max-w-2xl text-lead text-muted-foreground">
+            Insights into the future of music technology — artist tools, AI
+            agents, and the business of building a record label of one.
           </p>
         </div>
       </section>
 
-      {/* Blog Posts */}
-      <section className="mx-auto max-w-7xl px-8 pb-24 pt-12">
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {posts.map((post) => (
-            <Link
-              key={post.id}
-              href={post.url}
-              className="group relative flex flex-col"
-            >
-              {/* Card Container */}
-              <div className="flex h-full flex-col rounded-2xl border border-border/50 bg-card/30 p-6 backdrop-blur-sm transition-all duration-300 hover:border-border hover:bg-card/50 hover:shadow-xl">
-                {/* Meta */}
-                <div className="mb-4 space-y-2">
-                  <div className="text-xs font-light uppercase tracking-widest text-muted-foreground">
-                    <FormattedDate
-                      dateString={post.date}
-                      formatString="MMMM d, yyyy"
-                    />
-                  </div>
-                  {post.tags && post.tags.length > 0 && (
-                    <div className="flex flex-wrap gap-2">
-                      {post.tags.slice(0, 2).map((tag) => (
-                        <span
-                          key={tag}
-                          className="rounded-full border border-border/40 px-3 py-1 text-xs font-light tracking-wide text-muted-foreground"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  )}
-                </div>
-
-                {/* Content */}
-                <div className="flex flex-1 flex-col space-y-3">
-                  <h2 className="text-xl font-light leading-tight tracking-tight transition-colors group-hover:text-foreground">
-                    {post.title}
-                  </h2>
-                  <p className="flex-1 text-sm font-light leading-relaxed text-muted-foreground">
-                    {post.description}
-                  </p>
-
-                  {/* Footer */}
-                  <div className="flex items-center justify-between border-t border-border/30 pt-3">
-                    {post.author && (
-                      <span className="text-xs font-light text-muted-foreground">
-                        {post.author}
-                      </span>
-                    )}
-                    <span className="inline-flex items-center text-xs font-light tracking-wide text-foreground transition-colors group-hover:text-[#4778f5]">
-                      Read
-                      <svg
-                        className="ml-1.5 h-3.5 w-3.5 transition-transform group-hover:translate-x-1"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M17 8l4 4m0 0l-4 4m4-4H3"
-                        />
-                      </svg>
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </Link>
-          ))}
-        </div>
-
-        {posts.length === 0 && (
+      {/* Posts */}
+      <section className="mx-auto max-w-7xl px-6 pb-24 md:px-8">
+        {posts.length > 0 ? (
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {posts.map((post) => (
+              <PostCard key={post.id} post={post} />
+            ))}
+          </div>
+        ) : (
           <div className="flex min-h-[40vh] items-center justify-center">
-            <p className="font-light text-muted-foreground">
-              No posts published yet
-            </p>
+            <p className="text-muted-foreground">No posts published yet</p>
           </div>
         )}
       </section>
     </div>
+  );
+}
+
+interface PostCardProps {
+  post: Awaited<ReturnType<typeof getAllPosts>>[number];
+}
+
+function PostCard({ post }: PostCardProps) {
+  return (
+    <Link
+      href={post.url}
+      className="group relative block rounded-xl bg-card p-6 shadow-card transition-shadow duration-200 hover:shadow-elevated"
+    >
+      {/* Meta — date in pixel font, tags as pills */}
+      <div className="mb-5 flex flex-wrap items-center gap-2">
+        <span className="font-pixel text-xs uppercase tracking-[0.05em] text-muted-foreground">
+          <FormattedDate dateString={post.date} formatString="MMM d, yyyy" />
+        </span>
+        {post.tags && post.tags.length > 0 && (
+          <>
+            <span aria-hidden className="text-muted-foreground/40">
+              ·
+            </span>
+            <div className="flex flex-wrap gap-1.5">
+              {post.tags.slice(0, 2).map((tag) => (
+                <span
+                  key={tag}
+                  className="rounded-full bg-muted px-2.5 py-0.5 text-xs font-medium text-muted-foreground"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </>
+        )}
+      </div>
+
+      {/* Title — Plus Jakarta Sans 600 per DESIGN.md card title */}
+      <h2 className="font-ui text-xl font-semibold leading-tight tracking-tight text-foreground transition-colors group-hover:text-foreground">
+        {post.title}
+      </h2>
+
+      <p className="mt-3 line-clamp-3 text-[0.9375rem] leading-relaxed text-muted-foreground">
+        {post.description}
+      </p>
+
+      {/* Footer */}
+      <div className="shadow-border-top mt-6 flex items-center justify-between pt-4">
+        {post.author ? (
+          <span className="text-xs text-muted-foreground">{post.author}</span>
+        ) : (
+          <span />
+        )}
+        <span className="inline-flex items-center font-ui text-xs font-medium text-foreground">
+          Read
+          <svg
+            className="ml-1.5 h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-1"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            aria-hidden
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M17 8l4 4m0 0l-4 4m4-4H3"
+            />
+          </svg>
+        </span>
+      </div>
+    </Link>
   );
 }
