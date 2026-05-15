@@ -20,7 +20,7 @@ export default async function Home() {
           </div>
 
           <h1 className="font-pixel text-display tracking-tight text-foreground">
-            Recoupable Research
+            Recoup Research
           </h1>
 
           <p className="mx-auto mt-6 max-w-2xl text-lead text-muted-foreground">
