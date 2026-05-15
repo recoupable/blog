@@ -84,9 +84,6 @@ export default function RootLayout({
                     Recoup
                   </a>
                 </p>
-                <span className="font-pixel text-[11px] uppercase tracking-[0.05em] text-muted-foreground">
-                  Recoupable Research
-                </span>
               </div>
             </footer>
           </div>
