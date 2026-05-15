@@ -83,7 +83,6 @@ export default function RootLayout({
                   >
                     Recoup
                   </a>
-                  . Empowering artists to build their own record label.
                 </p>
                 <span className="font-pixel text-[11px] uppercase tracking-[0.05em] text-muted-foreground">
                   Recoupable Research
