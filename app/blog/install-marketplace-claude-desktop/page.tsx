@@ -23,5 +23,5 @@ export default async function InstallMarketplaceClaudeDesktopPage() {
     notFound();
   }
 
-  return <ParagraphPage post={post} />;
+  return <ParagraphPage post={post} author="" />;
 }

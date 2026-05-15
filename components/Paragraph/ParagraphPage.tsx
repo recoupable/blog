@@ -31,8 +31,12 @@ export function ParagraphPage({ post, author = "Recoupable Team" }: ParagraphPag
 
         {/* Meta */}
         <div className="flex items-center gap-2 text-sm text-muted-foreground">
-          <span className="font-medium text-foreground">{author}</span>
-          <span className="text-muted-foreground/50">·</span>
+          {author && (
+            <>
+              <span className="font-medium text-foreground">{author}</span>
+              <span className="text-muted-foreground/50">·</span>
+            </>
+          )}
           <FormattedDate dateString={publishedDate} />
           <span className="text-muted-foreground/50">·</span>
           <span>{readingTime}</span>
@@ -59,7 +63,7 @@ export function ParagraphPage({ post, author = "Recoupable Team" }: ParagraphPag
       {/* Footer */}
       <footer className="mt-16 border-t border-border pt-8">
         <div className="flex items-center justify-between text-sm text-muted-foreground">
-          <span>Published by {author}</span>
+          {author ? <span>Published by {author}</span> : <span />}
           <FormattedDate dateString={publishedDate} />
         </div>
       </footer>
