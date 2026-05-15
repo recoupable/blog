@@ -351,6 +351,41 @@
 .prose img {
   border-radius: var(--radius);
   margin: 2rem 0;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Paragraph callout widget — strip Paragraph's heavy info-box chrome
+ * and let the inner content render as plain prose. Short callouts
+ * like "Time to install — 5 min" don't earn the visual weight of a
+ * styled box, and the Paragraph-hosted icon URL is auth-gated (307 →
+ * login) so it'd render broken anyway. */
+.prose [data-type="callout"] {
+  margin: 1.5rem 0;
+  padding: 0;
+  background: none;
+  box-shadow: none;
+  border-radius: 0;
+}
+
+.prose .callout-base {
+  display: block;
+  padding: 0;
+  background: none;
+  box-shadow: none;
+  border-radius: 0;
+}
+
+.prose .callout-button {
+  display: none;
+}
+
+.prose .callout-content > *:first-child {
+  margin-top: 0;
+}
+
+.prose .callout-content > *:last-child {
+  margin-bottom: 0;
 }
 
 .prose hr {
